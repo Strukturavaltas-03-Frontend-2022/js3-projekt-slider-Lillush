@@ -9,34 +9,40 @@ const imageText = document.querySelector(".image__text");
 const pageDots = document.querySelector(".page__dots");
 const pageCounter = document.querySelector(".pagenumber");
 
-let stepTime = 5000;
+let stepTime = 3000;
 let i = 0;
 
-let image = gallery[i].src;
-let altText = gallery[i].text;
-
-const slideRight = (i) => {
-    
-    if (i < gallery.length+1) {
+rightArrow.addEventListener('click', () => {
+    if (i < gallery.length-1) {
         i++;
-        console.log(i);
-        imageSlide.setAttribute("src", `${image}`);
-        imageSlide.setAttribute("alt", `${altText}`);
     } else {
         i = 0;
-        imageSlide.setAttribute("src", `${image}`)
     }
-      //  imageSlide.setAttribute("alt", `${altText}`);
+  changeImgContent(i);
+    });
+
+leftArrow.addEventListener('click', () => {
+    if (i === 0) {
+        i = gallery.length-1;
+    } else {
+        i--;
+    }
+    changeImgContent(i);
+    });
+
+const changeImgContent = () => {
+    imageSlide.setAttribute("src", `${gallery[i].src}`);
+    imageSlide.setAttribute("alt", `${gallery[i].text}`);
+    imageText.innerHTML = `${gallery[i].text}`;
+    pageCounter.innerHTML = `${i+1}/${gallery.length}`;
     }
 
-const slideLeft = (i) => {
 
-}
+setInterval(() => {
+    if (i < gallery.length-1) {
+        i++;
+    } else {
+        i = 0;
+    }
+    changeImgContent(i)}, stepTime);
 
-const autoSlide = (i) => {
-
-}
-
-
-rightArrow.addEventListener('click', slideRight);
-leftArrow.addEventListener('click', slideLeft);
