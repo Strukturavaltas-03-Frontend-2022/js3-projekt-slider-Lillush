@@ -1,6 +1,6 @@
-# Slider   
+# Slider
 
-Egy image slider-t kell készítened JavaScript segítségével.   
+Egy image slider-t kell készítened JavaScript segítségével.
 
 ![image](https://user-images.githubusercontent.com/68642008/185652283-88b87849-61ad-4c6b-8264-22832d2174cc.png)
 

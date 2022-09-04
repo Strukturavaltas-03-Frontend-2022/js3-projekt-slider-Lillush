@@ -8,41 +8,49 @@ const rightArrow = document.querySelector(".right");
 const imageText = document.querySelector(".image__text");
 const pageDots = document.querySelector(".page__dots");
 const pageCounter = document.querySelector(".pagenumber");
+let singleDots;
 
 let stepTime = 3000;
 let i = 0;
 
-rightArrow.addEventListener('click', () => {
-    if (i < gallery.length-1) {
-        i++;
-    } else {
-        i = 0;
-    }
-  changeImgContent(i);
-    });
+for (let i = 0; i < gallery.length; i++) {
+  const singleDot = document.createElement("div");
+  singleDot.classList.add("dots");
+  singleDot.innerHTML = "⭕";
+  pageDots.appendChild(singleDot);
+}
 
-leftArrow.addEventListener('click', () => {
-    if (i === 0) {
-        i = gallery.length-1;
-    } else {
-        i--;
-    }
-    changeImgContent(i);
-    });
+singleDots = document.querySelectorAll(".dots");
 
-const changeImgContent = () => {
-    imageSlide.setAttribute("src", `${gallery[i].src}`);
-    imageSlide.setAttribute("alt", `${gallery[i].text}`);
-    imageText.innerHTML = `${gallery[i].text}`;
-    pageCounter.innerHTML = `${i+1}/${gallery.length}`;
-    }
+rightArrow.addEventListener("click", () => {
+  i < gallery.length - 1 ? i++ : (i = 0);
+  changeImageContent(i);
+});
 
+leftArrow.addEventListener("click", () => {
+  i === 0 ? (i = gallery.length - 1) : i--;
+  changeImageContent(i);
+});
+
+const changeImageContent = (i) => {
+  imageSlide.setAttribute("src", `${gallery[i].src}`);
+  imageSlide.setAttribute("alt", `${gallery[i].text}`);
+  pageCounter.innerHTML = `${i + 1}/7`;
+  imageText.innerHTML = gallery[i].text;
+
+  singleDots.forEach((dot) => {
+    dot.innerHTML = "⭕";
+  });
+  singleDots[i].innerHTML = "⚫";
+};
 
 setInterval(() => {
-    if (i < gallery.length-1) {
-        i++;
-    } else {
-        i = 0;
-    }
-    changeImgContent(i)}, stepTime);
+  i < gallery.length - 1 ? i++ : (i = 0);
+  changeImageContent(i);
+}, stepTime);
 
+singleDots.forEach((dot, i) =>
+  dot.addEventListener("click", () => {
+    changeImageContent(i);
+  })
+);
